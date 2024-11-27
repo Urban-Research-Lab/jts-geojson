@@ -16,10 +16,11 @@ open class BaseGeoJSONObject(
  */
 class Feature(
     val geometry: Geometry,
-    val properties: MutableMap<String, Any>
+    val properties: MutableMap<String, Any>,
+    val id: Any?
 ) : BaseGeoJSONObject("Feature") {
 
-    constructor(geometry: Geometry): this(geometry, mutableMapOf())
+    constructor(geometry: Geometry): this(geometry, mutableMapOf(), null)
 
     override fun toString(): String {
         // we do not want to print all geometry contents as they are very large

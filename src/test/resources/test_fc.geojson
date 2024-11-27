@@ -6,6 +6,7 @@
       "properties": {
         "test": 1
       },
+      "id": "1",
       "geometry": {
         "coordinates": [
           [
@@ -39,6 +40,7 @@
       "properties": {
         "test": 2
       },
+      "id": 2,
       "geometry": {
         "coordinates": [
           [
@@ -62,6 +64,7 @@
       "properties": {
         "test": 3
       },
+      "id": null,
       "geometry": {
         "coordinates": [
           31.067673225381725,
