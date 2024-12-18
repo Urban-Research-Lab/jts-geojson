@@ -41,6 +41,20 @@ class ImportExportTest {
     }
 
     @Test
+    fun testImportWithZCoord() {
+        val points = GeoJSONImportExport.readGeometries(javaClass.classLoader.getResourceAsStream("points_with_z_coords.geojson")!!)
+        Assertions.assertEquals(3, points.size)
+
+        points.forEach {
+            val z = it!!.coordinate.z
+            Assertions.assertTrue(!z.isNaN())
+
+            Assertions.assertTrue(z > 90.0)
+            Assertions.assertTrue(z < 110.0)
+        }
+    }
+
+    @Test
     fun testExport() {
         val gf = GeometryFactory()
         val feature = Feature(
