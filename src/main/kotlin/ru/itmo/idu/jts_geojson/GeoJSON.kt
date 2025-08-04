@@ -22,6 +22,8 @@ class Feature(
 
     constructor(geometry: Geometry): this(geometry, mutableMapOf(), null)
 
+    constructor(geometry: Geometry, properties: MutableMap<String, Any>): this(geometry, properties, null)
+
     override fun toString(): String {
         // we do not want to print all geometry contents as they are very large
         return "Feature{" +
