@@ -15,6 +15,7 @@ import java.io.OutputStreamWriter
 /**
  * Contains common routines for reading and writing GeoJSON files
  */
+@Suppress("unused")
 object GeoJSONImportExport {
 
     /**
@@ -40,7 +41,6 @@ object GeoJSONImportExport {
      */
     fun readSingleGeometry(stream: InputStream): Geometry {
         val featureCollection = readFeatureCollection(stream)
-            ?: throw IllegalArgumentException("Input stream does not contain valid GeoJSON")
         if (featureCollection.features.isEmpty()) {
             throw IllegalArgumentException("Empty feature collection")
         }
@@ -50,13 +50,32 @@ object GeoJSONImportExport {
     /**
      * Reads a list of geometries from given GeoJSON file, discarding all properties.
      */
-    fun readGeometries(stream: InputStream): List<Geometry?> {
-        return readFeatureCollection(stream)?.features?.map { it.geometry } ?: emptyList<Geometry>()
+    fun readGeometries(stream: InputStream): List<Geometry> {
+        return readFeatureCollection(stream).features.map { it.geometry }
     }
 
     fun writeFeatureCollection(outputStream: OutputStream, fc: FeatureCollection) {
         OutputStreamWriter(outputStream).use {
             gson.toJson(fc, it)
         }
+    }
+
+    fun writeFeatures(outputStream: OutputStream, features: List<Feature>) {
+        writeFeatureCollection(outputStream, FeatureCollection(features))
+    }
+
+    fun writeFeatures(outputStream: OutputStream, vararg features: Feature) {
+        writeFeatureCollection(outputStream, FeatureCollection(features.toList()))
+    }
+
+    fun writeGeometries(outputStream: OutputStream, geometries: List<Geometry>) {
+        val fc = FeatureCollection(
+            geometries.map { Feature(it) }
+        )
+        writeFeatureCollection(outputStream, fc)
+    }
+
+    fun writeGeometries(outputStream: OutputStream, vararg geometries: Geometry) {
+        writeGeometries(outputStream, geometries.toList())
     }
 }
