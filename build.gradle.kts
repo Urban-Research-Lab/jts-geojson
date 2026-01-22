@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "ru.itmo.idu"
-version = "1.0.2"
+version = "1.0.3"
 
 repositories {
     mavenCentral()
@@ -15,14 +15,15 @@ val githubUser = project.findProperty("gpr.user") as String? ?: System.getenv("U
 val githubPass = project.findProperty("gpr.key") as String? ?: System.getenv("TOKEN")
 
 dependencies {
-    api("org.locationtech.jts:jts-core:1.19.0")
+    api("org.locationtech.jts:jts-core:1.20.0")
 
-    api("com.google.code.gson:gson:2.8.9")
+    api("com.google.code.gson:gson:2.13.2")
     implementation("com.github.filosganga:geogson-core:1.4.31")
     implementation("com.github.filosganga:geogson-jts:1.4.31")
 
 
-    testImplementation(platform("org.junit:junit-bom:5.10.0"))
+    testImplementation(platform("org.junit:junit-bom:6.0.2"))
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher:1.14.2")
     testImplementation("org.junit.jupiter:junit-jupiter")
     implementation(kotlin("stdlib-jdk8"))
 }
@@ -31,7 +32,7 @@ tasks.test {
     useJUnitPlatform()
 }
 kotlin {
-    jvmToolchain(17)
+    jvmToolchain(21)
 }
 
 publishing {
