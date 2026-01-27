@@ -11,8 +11,8 @@ repositories {
     mavenCentral()
 }
 
-val githubUser = project.findProperty("gpr.user") as String? ?: System.getenv("USERNAME")
-val githubPass = project.findProperty("gpr.key") as String? ?: System.getenv("TOKEN")
+val githubUser: String? = project.findProperty("gpr.user") as String? ?: System.getenv("USERNAME")
+val githubPass: String? = project.findProperty("gpr.key") as String? ?: System.getenv("TOKEN")
 
 dependencies {
     api("org.locationtech.jts:jts-core:1.20.0")
@@ -23,7 +23,7 @@ dependencies {
 
 
     testImplementation(platform("org.junit:junit-bom:6.0.2"))
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher:1.14.2")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher:6.0.2")
     testImplementation("org.junit.jupiter:junit-jupiter")
     implementation(kotlin("stdlib-jdk8"))
 }
