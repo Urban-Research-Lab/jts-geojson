@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "ru.itmo.idu"
-version = "1.0.4"
+version = "2.0.1"
 
 repositories {
     mavenCentral()
@@ -47,9 +47,17 @@ publishing {
         }
     }
 
+    // Task to create source JAR
+    val sourceJar by tasks.registering(Jar::class) {
+        archiveClassifier.set("sources")
+        from(sourceSets.main.get().allSource)
+    }
+
     publications {
         create<MavenPublication>("maven") {
             from(components["java"])
+
+            artifact(sourceJar)
         }
     }
 }
